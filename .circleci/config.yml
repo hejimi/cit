@@ -20,6 +20,7 @@ jobs:
     executor: main-env
     steps:
       - add_ssh_keys
+      - checkout
       - run:
           name: Test keys
           command: |
