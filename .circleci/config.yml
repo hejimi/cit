@@ -14,6 +14,7 @@ jobs:
             install -d /tmp/output
             echo 1 >/tmp/output/file1
             echo 2 >/tmp/output/file2
+            echo 3 >/tmp/output/file3
       - store_artifacts:
           path: /tmp/output
   deploy:
@@ -34,4 +35,8 @@ workflows:
           filters:
             branches:
               ignore: main
-      - deploy
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
