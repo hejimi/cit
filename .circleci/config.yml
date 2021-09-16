@@ -1,0 +1,38 @@
+version: 2.1
+executors:
+  main-env:
+    machine:
+      image: ubuntu-2004:202107-02
+jobs:
+  create:
+    executor: main-env
+    steps:
+      - checkout
+      - run:
+          name: create artifacts
+          command: |
+            install -d /tmp/output
+            echo 1 >/tmp/output/file1
+            echo 2 >/tmp/output/file2
+      - store_artifacts:
+          path: /tmp/output
+  deploy:
+    executor: main-env
+    steps:
+      - add_ssh_keys:
+      - run:
+          name: Test keys
+          command: ssh-add -L
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - create:
+          filters:
+            branches:
+              ignore: main
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
