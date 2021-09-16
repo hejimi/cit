@@ -22,7 +22,9 @@ jobs:
       - add_ssh_keys
       - run:
           name: Test keys
-          command: ssh-add -L
+          command: |
+            git log --oneline -1
+            ssh-add -L
 workflows:
   version: 2
   workflow:
