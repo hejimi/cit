@@ -19,7 +19,7 @@ jobs:
   deploy:
     executor: main-env
     steps:
-      - add_ssh_keys:
+      - add_ssh_keys
       - run:
           name: Test keys
           command: ssh-add -L
